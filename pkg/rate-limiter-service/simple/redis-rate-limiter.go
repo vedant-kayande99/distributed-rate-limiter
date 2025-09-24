@@ -3,23 +3,19 @@ package simple
 import (
 	"context"
 	"distributed-rate-limiter/pkg/rate-limiter-service/store"
+	_ "embed"
 	"fmt"
-	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/redis/go-redis/v9"
 )
 
+//go:embed rate-limit-check.lua
+var rateLimitCheckScriptContent []byte
 var rateLimitCheckScript *redis.Script
 
 func init() {
-	scriptPath := filepath.Join("pkg", "rate-limiter-service", "scripts","rate-limit-check.lua")
-	scriptContent, err := os.ReadFile(scriptPath)
-	if err != nil {
-		panic(fmt.Sprintf("ERROR: Failed to load the rate-limit-check.lua script: %v", err))
-	}
-	rateLimitCheckScript = redis.NewScript(string(scriptContent))
+	rateLimitCheckScript = redis.NewScript(string(rateLimitCheckScriptContent))
 }
 
 type RateLimiter struct {

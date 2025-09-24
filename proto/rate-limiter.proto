@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package rate_limiter;
+
+option go_package = "distributed-rate-limiter/proto";
+
+// The rate limiter service definition.
+service RateLimiterService {
+    rpc ShouldAllow (RateLimitRequest) returns (RateLimitResponse) {}
+}
+
+message RateLimitRequest {
+    string user_id = 1;
+}
+
+message RateLimitResponse {
+    bool allowed = 1;
+}
