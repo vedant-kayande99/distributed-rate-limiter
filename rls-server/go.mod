@@ -3,7 +3,6 @@ module rls-server
 go 1.25.1
 
 require (
-	github.com/joho/godotenv v1.5.1
 	github.com/redis/go-redis/v9 v9.14.0
 	github.com/vedant-kayande99/distributed-rate-limiter/proto v0.0.0-20250925023905-c0d073d00a97
 	google.golang.org/grpc v1.75.1
