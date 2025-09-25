@@ -3,7 +3,7 @@ module api-server
 go 1.25.1
 
 require (
-	distributed-rate-limiter/proto v0.0.0-00010101000000-000000000000
+	github.com/vedant-kayande99/distributed-rate-limiter/proto v0.0.0-20250925023905-c0d073d00a97
 	google.golang.org/grpc v1.75.1
 )
 
@@ -14,5 +14,3 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250707201910-8d1bb00bc6a7 // indirect
 	google.golang.org/protobuf v1.36.9 // indirect
 )
-
-replace distributed-rate-limiter/proto => ../proto

@@ -2,23 +2,16 @@ package main
 
 import (
 	"context"
-	pb "distributed-rate-limiter/proto"
 	"fmt"
 	"log"
 	"net"
 	"rls-server/pkg/rate-limiter-service/simple"
 	"time"
 
-	"github.com/joho/godotenv"
+	pb "github.com/vedant-kayande99/distributed-rate-limiter/proto"
+
 	"google.golang.org/grpc"
 )
-
-func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Printf("WARN: Error loading .env file: %v", err)
-	}
-}
 
 type rlServer struct {
 	pb.UnimplementedRateLimiterServiceServer

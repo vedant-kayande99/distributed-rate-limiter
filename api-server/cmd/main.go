@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
-	pb "distributed-rate-limiter/proto"
+	pb "github.com/vedant-kayande99/distributed-rate-limiter/proto"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -16,7 +17,8 @@ import (
 var rlsClient pb.RateLimiterServiceClient
 
 func main() {
-	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	rlServer := getEnvOrDefault("RATE_LIMITER_HOST","rls-server")
+	conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", rlServer, 50051), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("Error: Couldn't connect to the RPC server at: localhost:50051, %v", err)
 	}
@@ -51,4 +53,11 @@ func rateLimitedEndpoint(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Too many Requests."))
 	}
 
+}
+
+func getEnvOrDefault(key, defaultValue string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+	return defaultValue
 }
