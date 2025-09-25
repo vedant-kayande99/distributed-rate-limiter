@@ -2,9 +2,9 @@ package simple
 
 import (
 	"context"
-	"distributed-rate-limiter/pkg/rate-limiter-service/store"
 	_ "embed"
 	"fmt"
+	"rls-server/pkg/rate-limiter-service/store"
 	"time"
 
 	"github.com/redis/go-redis/v9"

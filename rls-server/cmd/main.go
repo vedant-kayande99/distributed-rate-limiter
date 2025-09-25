@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
-	"distributed-rate-limiter/pkg/rate-limiter-service/simple"
 	pb "distributed-rate-limiter/proto"
 	"fmt"
 	"log"
 	"net"
+	"rls-server/pkg/rate-limiter-service/simple"
 	"time"
 
 	"github.com/joho/godotenv"

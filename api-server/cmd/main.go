@@ -2,11 +2,12 @@ package main
 
 import (
 	"context"
-	pb "distributed-rate-limiter/proto"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
+
+	pb "distributed-rate-limiter/proto"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
