@@ -1,4 +1,4 @@
-module distributed-rate-limiter/proto
+module github.com/vedant-kayande99/distributed-rate-limiter/proto
 
 go 1.25.1
 
