@@ -1,0 +1,17 @@
+services:
+  test-client:
+    image: curlimages/curl:latest
+    command: >
+      sh -c 'for i in $(seq 1 100); do
+        echo "Request $i";
+        curl -v http://api-server-lb/data;
+        sleep 0.5;
+      done'
+    deploy:
+      replicas: 3
+    networks:
+      - test-net
+
+networks:
+  test-net:
+    external: true
