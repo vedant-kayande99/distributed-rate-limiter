@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	pb "github.com/vedant-kayande99/distributed-rate-limiter/proto"
@@ -30,8 +31,28 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
+func getClientIP(reqHeaders *http.Header) string {
+	forwardedFor := reqHeaders.Get("X-Forwarded-For")
+	if forwardedFor != "" {
+		log.Printf("Client IP - ForwardedFor: %s", forwardedFor)
+		return strings.TrimSpace(strings.Split(forwardedFor, ",")[0])
+	}
+
+	realIP := reqHeaders.Get("X-Real-IP")
+	if realIP != "" {
+		log.Printf("Client IP - Real IP: %s", realIP)
+		return strings.TrimSpace(realIP)
+	}
+	return ""
+}
+
 func rateLimitedEndpoint(w http.ResponseWriter, r *http.Request) {
-	userId := "user-123"
+	userId := getClientIP(&r.Header)
+
+	if userId == "" {
+		log.Printf("Client IP - Fallback RemoteAddr: %s", r.RemoteAddr)
+		userId = r.RemoteAddr
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
