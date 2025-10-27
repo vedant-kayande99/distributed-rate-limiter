@@ -50,28 +50,6 @@ Stop:
 docker compose -f docker/docker-compose.yml down
 ```
 
-Clean volumes (Redis data):
-
-```bash
-docker compose -f docker/docker-compose.yml down -v
-```
-
-### Rebuild after code changes
-
-Rebuild only `rls-server`:
-
-```bash
-docker compose -f docker/docker-compose.yml build rls-server
-docker compose -f docker/docker-compose.yml up -d
-```
-
-Rebuild everything:
-
-```bash
-docker compose -f docker/docker-compose.yml build
-docker compose -f docker/docker-compose.yml up -d
-```
-
 ### Run the test client
 
 Create an external network test-net -> Run the test-client image
